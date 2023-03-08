@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import DehazeIcon from '@mui/icons-material/Dehaze'
 import "./Navbar.css"
-import { AppBar, IconButton, Toolbar, Typography } from '@mui/material';
+import { AppBar, Box, IconButton, Toolbar, Typography } from '@mui/material';
 import NavMenu from './NavMenu';
 
 function Navbar() {
@@ -17,19 +17,23 @@ function Navbar() {
     }
 
     return (
-        <AppBar sx={{ p:2}} color="primary">
-            <Toolbar>
-                <Typography sx={{ flexGrow: 1, fontSize: 50} }>RETRO MAFIA</Typography>
-                <IconButton size="large" color="inherit" id="dropdown-button" onClick={handleClick}
-                            aria-control={anchor ? 'dropdown' : undefined}
-                            aria-haspopup="true"
-                            aria-expanded={anchor ? "true" : undefined}
-                            sx={{mr:10}}>
-                    <DehazeIcon />
-                </IconButton>
-                <NavMenu closeHandler={handleClose} open={open} anchor={anchor} />
-            </Toolbar>
-        </AppBar>
+        <div>
+            <Box sx={{flexGrow:1}}>
+                <AppBar color="primary" position="sticky">
+                    <Toolbar>
+                        <Typography  sx={{flexGrow:1}}>RETRO MAFIA</Typography>
+                        <IconButton size="large" color="inherit" id="dropdown-button" onClick={handleClick}
+                                    aria-control={anchor ? 'dropdown' : undefined}
+                                    aria-haspopup="true"
+                                    aria-expanded={anchor ? "true" : undefined}
+                                    sx={{mr:10}}>
+                            <DehazeIcon />
+                        </IconButton>
+                        <NavMenu closeHandler={handleClose} open={open} anchor={anchor} />
+                    </Toolbar>
+                </AppBar>
+            </Box>
+        </div>
     );
 }
 

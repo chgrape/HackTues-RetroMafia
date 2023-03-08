@@ -16,8 +16,8 @@ function PassPage() {
 
     return (
         <>
-            <Button sx={{p:10}} variant="h1" onClick={fetchPasswords}>Fetch</Button>
-            {passwords.map((pass)=>{return <Typography key={pass.id} variant="h5" >Password for {pass.title} - {pass.userId}</Typography>})}
+            <Button sx={{ display:"flex", justifyContent:"center", alignItems:"center"}} variant="h1" onClick={fetchPasswords}>Fetch</Button>
+            {passwords.map((pass)=>{return <Typography key={pass.id} variant="h5" sx={{display:"flex", justifyContent:"center"}} >Password for {pass.title} - {pass.userId}</Typography>})}
         </>
     )
 }

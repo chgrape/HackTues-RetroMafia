@@ -5,7 +5,7 @@ import Navbar from './Navbar'
 function Home() {
   return (
     <>
-        <Typography sx={{p:20}}>Home</Typography>
+        <Typography>Home</Typography>
     </>
   )
 }
