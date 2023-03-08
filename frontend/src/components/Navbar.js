@@ -17,19 +17,18 @@ function Navbar() {
     }
 
     return (
-        <AppBar color="primary">
-        <Toolbar>
-            <Typography sx={{ flexGrow: 1}}>RETRO MAFIA</Typography>
-            <IconButton size="large" color="inherit" id="dropdown-button" onClick={handleClick}
-                        aria-control={anchor ? 'dropdown' : undefined}
-                        aria-haspopup="true"
-                        aria-expanded={anchor ? "true" : undefined}
-                        sx={{mr:10}}>
-                <DehazeIcon />
-            </IconButton>
-            <NavMenu closeHandler={handleClose} open={open} anchor={anchor} />
-        </Toolbar>
-        
+        <AppBar sx={{ p:2}} color="primary">
+            <Toolbar>
+                <Typography sx={{ flexGrow: 1, fontSize: 50} }>RETRO MAFIA</Typography>
+                <IconButton size="large" color="inherit" id="dropdown-button" onClick={handleClick}
+                            aria-control={anchor ? 'dropdown' : undefined}
+                            aria-haspopup="true"
+                            aria-expanded={anchor ? "true" : undefined}
+                            sx={{mr:10}}>
+                    <DehazeIcon />
+                </IconButton>
+                <NavMenu closeHandler={handleClose} open={open} anchor={anchor} />
+            </Toolbar>
         </AppBar>
     );
 }
