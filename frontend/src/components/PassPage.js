@@ -14,10 +14,14 @@ function PassPage() {
         setPasswords(data);
     }
 
+    useEffect(()=>{
+        fetchPasswords()
+    }, [])
+
     return (
         <>
+            <Typography sx={{display:"flex", justifyContent:"center", fontSize: 20, p:5}}>Password page</Typography>
             
-            <Typography sx={{display:"flex", justifyContent:"center", fontSize: 20}}><Button sx={{ display:"flex", justifyContent:"center", alignItems:"center"}} variant="h1" onClick={fetchPasswords}>Fetch</Button>Password page</Typography>
             {passwords.map((pass)=>{return <Typography key={pass.id} variant="h5" sx={{display:"flex", justifyContent:"center"}} >Password for {pass.title} - {pass.userId}</Typography>})}
         </>
     )

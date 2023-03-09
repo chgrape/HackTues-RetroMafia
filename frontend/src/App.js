@@ -4,12 +4,13 @@ import Navbar from "./components/Navbar"
 import PassPage from "./components/PassPage";
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import Home from "./components/Home";
+import ProfilePage from "./components/ProfilePage";
 
 function App() {
   const theme = createTheme({
     typography:{
-      fontFamily: ['Roboto', 'sans-serif'],
-      fontWeight: "bold"
+      fontFamily: ['Monsterrat', 'sans-serif'].join(','),
+      fontWeight: "light"
     },
 
     palette:{
@@ -28,6 +29,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/passwords" element={<PassPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
         </Routes>
       </ThemeProvider>
   );

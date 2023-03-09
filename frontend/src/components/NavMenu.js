@@ -14,8 +14,8 @@ function NavMenu(props){
          }}>
              <MenuList>
                     <MenuItem component={Link} to={"/"} onClick={props.closeHandler}>
-                        <AccountCircleIcon sx={{pr: 2}} />
-                        <Typography variant="inherit">Profile</Typography>
+                        <InfoIcon sx={{pr: 2}} />
+                        <Typography variant="inherit">Home</Typography>
                     </MenuItem>
                 <Divider />
                     <MenuItem component={Link} to={"/passwords"} onClick={props.closeHandler}>
@@ -23,9 +23,9 @@ function NavMenu(props){
                             <Typography variant="inherit">Passwords</Typography>
                     </MenuItem>
                 <Divider />
-                <MenuItem onClick={props.closeHandler}>
-                    <InfoIcon sx={{pr: 2}} />
-                    <Typography variant="inherit">About</Typography>
+                <MenuItem component={Link} to={"/profile"} onClick={props.closeHandler}>
+                    <AccountCircleIcon sx={{pr: 2}} />
+                    <Typography variant="inherit">Profile</Typography>
                 </MenuItem>
              </MenuList>
          </Menu>
