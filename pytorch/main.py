@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import torch
+from torch import nn
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
@@ -90,3 +91,74 @@ y_arr, X_arr = array[:, :1], array[:, 1:]
 X_passwords = torch.from_numpy(X_arr).type(torch.float)
 y_passwords = torch.from_numpy(y_arr).type(torch.float)
 
+y_passwords = y_passwords.view(-1,1)
+
+y_passwords = torch.cat((y_passwords, torch.zeros_like(y_passwords)), dim=1)
+y_passwords = torch.cat((y_passwords, torch.zeros_like(y_passwords)), dim=1)
+
+for i in range(len(y_passwords)):
+    if y_passwords[i][0] == 0:
+        y_passwords[i][0] = 1
+    if y_passwords[i][0] == 1:
+        y_passwords[i][1] = 1
+    if y_passwords[i][0] == 2:
+        y_passwords[i][2] = 1
+
+
+y_passwords = y_passwords[:, 1:]
+
+X_train, X_test, y_train, y_test = train_test_split(X_passwords, y_passwords, test_size=0.2, random_state=42)
+
+
+class PasswordModelV1(nn.Module):
+    def __init__(self, in_units, out_units, hidden_units):
+        super().__init__()
+        self.layer_stack = nn.Sequential(
+            nn.Linear(in_units, hidden_units),
+            nn.Linear(hidden_units, hidden_units),
+            nn.Linear(hidden_units, out_units)
+        )
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        return self.layer_stack(x)
+
+
+model = PasswordModelV1(5, 3, 16)
+
+loss_fn = nn.CrossEntropyLoss()
+optimizer = torch.optim.SGD(model.parameters(), lr=0.1)
+
+def accuracy_fn(y_true, y_pred):
+    y_true = y_true.argmax(dim=1)
+    y_pred = y_pred.argmax(dim=1)
+    return torch.sum(y_true == y_pred).item() / len(y_true)
+
+
+torch.manual_seed(42)
+
+epochs = 100
+
+for epoch in range(epochs):
+    model.train()
+    train_logits = model(X_train)
+    train_preds = torch.softmax(train_logits, dim=1)
+
+    loss = loss_fn(train_logits, y_train)
+    acc = accuracy_fn(y_train, train_preds)
+
+    optimizer.zero_grad()
+    loss.backward()
+    optimizer.step()
+
+    model.eval()
+
+    with torch.inference_mode():
+        test_logits = model(X_test)
+        test_preds = torch.softmax(test_logits, dim=1)
+
+        test_loss = loss_fn(test_logits, y_test)
+        test_acc = accuracy_fn(y_test, test_preds)
+
+    if epoch % 10 == 0:
+        print(
+            f"Epoch: {epoch} | Loss: {loss:.5f} | Acc: {acc:.2f}% | Test loss: {test_loss:.5f} | Test acc: {test_acc:.2f}%")
