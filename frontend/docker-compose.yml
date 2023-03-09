@@ -1,0 +1,10 @@
+version: "3.8"
+
+services:
+  app: 
+    container_name: "retro-mafia-docker"
+    image: "retro-mafia-image"
+    build:
+      context: .
+    ports:
+      - 8080:80
