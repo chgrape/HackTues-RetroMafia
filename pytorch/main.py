@@ -2,65 +2,14 @@ import pandas as pd
 import numpy as np
 import torch
 from torch import nn
-from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestClassifier
-import re
-import matplotlib.pyplot as plt
+from funcs import *
 
 data = pd.read_csv("data.csv", error_bad_lines=False)
 print(data.head())
 
 data=data.dropna(axis=0)
 data['password']=data['password'].astype('str')
-
-def cal_len(x):
-    '''
-    Calculates the length of a given password.
-    '''
-    x=str(x)
-    return len(x)
-
-def cal_capL(x):
-    '''
-    Calculates the number of capital letters in the password.
-    '''
-    x=str(x)
-    cnt=0
-    for i in x:
-        if(i.isupper()):
-            cnt+=1
-    return cnt
-
-def cal_smL(x):
-    '''
-    Calculates the nu,ber of small letters in the password.
-    '''
-    x=str(x)
-    cnt=0
-    for i in x:
-        if(i.islower()):
-            cnt+=1
-    return cnt
-
-def cal_spc(x):
-    '''
-    Calculates the number of special characters in the password.
-    '''
-    x=str(x)
-    return (len(x)-len(re.findall('[\w]',x)))
-
-def cal_num(x):
-    '''
-    Calculates the number of numeric values in the password.
-    '''
-    x=str(x)
-    cnt=0
-    for i in x:
-        if(i.isnumeric()):
-            cnt+=1
-    return cnt
 
 length=lambda x:cal_len(x)
 capital=lambda x:cal_capL(x)
@@ -115,7 +64,11 @@ class PasswordModelV1(nn.Module):
         super().__init__()
         self.layer_stack = nn.Sequential(
             nn.Linear(in_units, hidden_units),
+            nn.ReLU(),
             nn.Linear(hidden_units, hidden_units),
+            nn.ReLU(),
+            nn.Linear(hidden_units, hidden_units),
+            nn.ReLU(),
             nn.Linear(hidden_units, out_units)
         )
 
@@ -123,10 +76,10 @@ class PasswordModelV1(nn.Module):
         return self.layer_stack(x)
 
 
-model = PasswordModelV1(5, 3, 16)
+model = PasswordModelV1(5, 3, 64)
 
 loss_fn = nn.CrossEntropyLoss()
-optimizer = torch.optim.SGD(model.parameters(), lr=0.1)
+optimizer = torch.optim.Adam(model.parameters(), lr=0.1)
 
 def accuracy_fn(y_true, y_pred):
     y_true = y_true.argmax(dim=1)
