@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import PasswordIcon from '@mui/icons-material/Password';
 import InfoIcon from '@mui/icons-material/Info';
@@ -23,7 +23,7 @@ function NavMenu(props){
                             <Typography variant="inherit">Passwords</Typography>
                     </MenuItem>
                 <Divider />
-                <MenuItem component={Link} to={"/profile"} onClick={props.closeHandler}>
+                <MenuItem component={Link} to={"/register"} onClick={props.closeHandler}>
                     <AccountCircleIcon sx={{pr: 2}} />
                     <Typography variant="inherit">Profile</Typography>
                 </MenuItem>
