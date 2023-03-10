@@ -40,7 +40,7 @@ MafiaPASS съхранява информацията на потребител�
 ``` 
 JavaScript, , ExpressJS, NodeJS,
 Python, PyTorch,
-, MySQL, Docker,
+MySQL, Docker,
 HTML, CSS 
 ```
 
