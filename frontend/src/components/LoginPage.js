@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import axios from 'axios'
 
 function LoginPage() {
     const [email, setEmail] = useState('');
@@ -13,18 +14,15 @@ function LoginPage() {
 
     const nav = useNavigate();
 
-    const validateCreds = async () => {
-      const res = await fetch("http://localhost:6000/user")
+    const handleLogin = async () => {
+      const res = await axios.post("http://localhost:8080/login", { email, pass})
+      console.log(res.data)
+    }
+
+    const validateCookie = async () =>{
+      const res = await axios.get("http://localhost:8080/checkcookie", {withCredentials: true})
       const data = await res.json();
-      for(let el in data){
-        if(el.email == email && el.pass == pass){
-          console.log("Logged in")
-          nav('/passwords');
-        }else{
-          console.log("Error")
-        }
-      }
-      
+      console.log(data.msg)
     }
 
   return (
@@ -42,7 +40,8 @@ function LoginPage() {
                       </InputAdornment>
                     ),
                   }}></TextField>
-                <Button sx={{p:5, fontSize: 16}}>Login</Button>
+                <Button sx={{p:5, fontSize: 16}} onClick={handleLogin}>Login</Button>
+                <Button sx={{p:5, fontSize: 16}} onClick={validateCookie}>Validate</Button>
                 <Typography sx={{pr:3, pb:5}}>Don't have an account? <Typography component={Link} to={"/register"}>Sign up!</Typography></Typography>
             </Box>
         </Card>
