@@ -35,7 +35,7 @@ JavaScript, Python, MySQL
 
 ## Инсталация
 
-####Python библиотеки
+#### Python библиотеки
 
 ```
 import pandas as pd
@@ -46,7 +46,7 @@ from torch import nn
 from sklearn.model_selection import train_test_split
 ```
 
-####JavaScript библиотеки
+#### JavaScript библиотеки
 
 ```
 
