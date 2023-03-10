@@ -1,6 +1,7 @@
 from funcs import *
 import pandas as pd
 import torch
+import sys
 from torch import nn
 
 length = lambda x:cal_len(x)
@@ -43,4 +44,5 @@ def tester(password):
     if output[0][2] > output[0][0] and output[0][2] > output[0][1]:
         return "Strong"
 
-print(tester("D-12!@##BAuerbnA-"))
+
+print(tester(argv[1]))
