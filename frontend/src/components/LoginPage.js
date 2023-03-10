@@ -2,7 +2,7 @@ import { Button, Card, Grid, InputAdornment, TextField, Typography } from '@mui/
 import { Box } from '@mui/system';
 import React from 'react'
 import { useState } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
@@ -10,6 +10,22 @@ function LoginPage() {
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
     const [showPass, setShowPass] = useState(false);
+
+    const nav = useNavigate();
+
+    const validateCreds = async () => {
+      const res = await fetch("http://localhost:6000/user")
+      const data = await res.json();
+      for(let el in data){
+        if(el.email == email && el.pass == pass){
+          console.log("Logged in")
+          nav('/passwords');
+        }else{
+          console.log("Error")
+        }
+      }
+      
+    }
 
   return (
     <Grid direction="column" alignItems="center" justify="center">

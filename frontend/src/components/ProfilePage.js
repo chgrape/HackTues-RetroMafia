@@ -29,7 +29,7 @@ function ProfilePage() {
         setPassConf(event.target.value)
     }
 
-    const handleSubmit = event =>{
+    const  handleSubmit = async (event) =>{
         event.preventDefault()
 
         setPass('')
@@ -39,9 +39,13 @@ function ProfilePage() {
         if(hasError === 1 || hasErrorPass === 1 || hasErrorPassConf === 1){
             setErrMsg('Invalid email or password');
         }else{
-            setOpen(true);
+            //setOpen(true);
             setErrMsg('');
-            console.log("Success");
+        const response = await fetch(`https://91c6-151-251-243-143.eu.ngrok.io/user?username=${email}&rootpass=${pass}`, {headers:new Headers({
+            "ngrok-skip-browser-warning": true
+            
+        }),
+        method:"POST",})
         }
     }
 
