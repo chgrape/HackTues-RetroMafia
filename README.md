@@ -91,5 +91,4 @@ import knexConfig from './db/knexfile.js'
 
 > Теодор Стефанов (Ментор)
 
-Повече Информация:
-![icon](https://user-images.githubusercontent.com/71979318/224450821-75538a59-4887-4ed9-a4bc-ae7318ee66c0.png) https://hacktues.bg/teams/34
+![icon](https://user-images.githubusercontent.com/71979318/224450821-75538a59-4887-4ed9-a4bc-ae7318ee66c0.png) Повече Информация: https://hacktues.bg/teams/34
