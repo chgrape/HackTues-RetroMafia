@@ -1,10 +1,11 @@
-import { TextField, Typography, Box, Button, Card, Grid, InputAdornment } from '@mui/material'
+import { TextField, Typography, Box, Button, Card, Grid, InputAdornment, Backdrop } from '@mui/material'
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 function ProfilePage() {
+    const [open, setOpen] = useState(false);
     const [showPass, setShowPass] = useState(false);
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
@@ -38,6 +39,7 @@ function ProfilePage() {
         if(hasError === 1 || hasErrorPass === 1 || hasErrorPassConf === 1){
             setErrMsg('Invalid email or password');
         }else{
+            setOpen(true);
             setErrMsg('');
             console.log("Success");
         }
@@ -115,6 +117,15 @@ function ProfilePage() {
 
                     <Button sx={{p:5, fontSize:16}} onClick={handleSubmit}>Register</Button>
                     
+                    <Backdrop
+                        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                        open={open}
+                        onClick={()=>{setOpen(false)}}>
+                        <Card>
+                        <Typography>QR Code goes here</Typography>
+                        </Card>
+                    </Backdrop>
+                        
                     <Typography sx={{pr:3, pb:5}}>Already have an account? <Typography component={Link} to={"/login"}>Log in!</Typography></Typography>
                 </Box>
             </Card>
