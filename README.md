@@ -39,7 +39,7 @@ MafiaPASS съхранява информацията на потребител�
 
 `JavaScript, Python, MySQL, ExpressJS, NodeJS`
 
-## Нужни за инсталация библиотеки
+## Нужни за разработка библиотеки
 
 #### Python библиотеки
 
@@ -57,7 +57,12 @@ from sklearn.model_selection import train_test_split
 #### JavaScript библиотеки
 
 ```
-
+import express from 'express';
+import cookieParser from 'cookie-parser';
+import bodyParser from 'body-parser';
+import cors from 'cors'
+import knex from 'knex';
+import knexConfig from './db/knexfile.js'
 ```
 
 ### Нашият Екип:
