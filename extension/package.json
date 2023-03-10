@@ -1,0 +1,10 @@
+{
+  "name": "extension",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "content_script.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

@@ -1,0 +1,12 @@
+var iframe = document.createElement("iframe");
+iframe.src = chrome.extension.getURL("popup.html");
+iframe.style.cssText = "position:absolute;top:0;left:0;display:none;";
+document.body.appendChild(iframe);
+
+chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
+  if (message.action == "show") {
+    iframe.style.display = "block";
+  } else if (message.action == "hide") {
+    iframe.style.display = "none";
+  }
+});
