@@ -37,7 +37,7 @@ MafiaPASS съхранява информацията на потребител�
 
 ## Технологии използвани в апликацията:
 
-`JavaScript, Python, MySQL, ExpressJS, NodeJS`
+`JavaScript, Python, PyTorch, MySQL, ExpressJS, NodeJS`
 
 ## Библиотеки използвани при разработка
 
@@ -49,6 +49,7 @@ import numpy as np
 import torch
 import re
 import sklearn
+import sys
 
 from torch import nn
 from sklearn.model_selection import train_test_split
