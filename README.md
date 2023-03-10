@@ -38,7 +38,7 @@ MafiaPASS съхранява информацията на потребител�
 ## Технологии използвани в апликацията:
 
 ``` 
-JavaScript, , ExpressJS, NodeJS,
+JavaScript, ExpressJS, NodeJS,
 Python, PyTorch,
 MySQL, Docker,
 HTML, CSS 
