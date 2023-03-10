@@ -9,8 +9,9 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies":    {
+  "dependencies": {
     "body-parser": "^1.20.2",
+    "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "knex": "^2.4.2",
@@ -19,6 +20,5 @@
     "ngrok": "^4.3.3",
     "nodemon": "^2.0.21"
   },
-  "devDependencies": {},
   "description": ""
 }
