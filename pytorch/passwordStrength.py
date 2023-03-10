@@ -1,8 +1,8 @@
 from funcs import *
 import pandas as pd
 import torch
-from torch import nn
 import sys
+from torch import nn
 
 length = lambda x:cal_len(x)
 capital = lambda x:cal_capL(x)
@@ -45,4 +45,4 @@ def tester(password):
         return "Strong"
 
 
-print(tester(sys.argv[1]))
+print(tester(argv[1]))
