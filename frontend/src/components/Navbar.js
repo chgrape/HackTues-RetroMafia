@@ -1,10 +1,7 @@
 import React, {useState} from 'react'
 import DehazeIcon from '@mui/icons-material/Dehaze'
-import "./Navbar.css"
-import { AppBar, Box, IconButton, Toolbar, Typography, Button } from '@mui/material';
+import { AppBar, Box, IconButton, Toolbar, Typography } from '@mui/material';
 import NavMenu from './NavMenu';
-import { Link } from 'react-router-dom';
-import { Stack } from '@mui/system';
 
 function Navbar() {
     const [open, setOpen] = useState(false);

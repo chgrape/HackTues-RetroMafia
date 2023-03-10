@@ -2,9 +2,10 @@ import { ThemeProvider } from "@emotion/react";
 import { createTheme } from "@mui/material";
 import Navbar from "./components/Navbar"
 import PassPage from "./components/PassPage";
-import {BrowserRouter, Routes, Route} from 'react-router-dom'
+import { Routes, Route} from 'react-router-dom'
 import Home from "./components/Home";
 import ProfilePage from "./components/ProfilePage";
+import LoginPage from "./components/LoginPage";
 
 function App() {
   const theme = createTheme({
@@ -29,7 +30,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/passwords" element={<PassPage />} />
-          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/register" element={<ProfilePage />} />
+          <Route path="/login" element={<LoginPage />} />
         </Routes>
       </ThemeProvider>
   );

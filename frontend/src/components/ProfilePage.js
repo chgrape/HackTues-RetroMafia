@@ -1,29 +1,28 @@
 import { TextField, Typography, Box, Button, Card, Grid } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom';
 
 function ProfilePage() {
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
+    const [passConf, setPassConf] = useState('');
     const [hasError, setHasError] = useState(0);
     const [hasErrorPass, setHasErrorPass] = useState(0);
+    const [hasErrorPassConf, setHasErrorPassConf] = useState(0);
+    const [errMsg, setErrMsg] = useState('');
     const regex = /^(?=.*[\d])(?=.*[!@#$%^&*])[\w!@#$%^&*]{6,16}$/;
+    const regexEmail = /\S+@\S+\.\S+/;
 
     const handleEmail = event =>{
         setEmail(event.target.value)
-        if(!email.toLowerCase().match('@')){
-            setHasError(1);
-        }else{
-            setHasError(0);
-        }
     }
 
     const handlePass = event =>{
         setPass(event.target.value)
-        if(regex.test(pass)){
-            setHasErrorPass(0);
-        }else{
-            setHasErrorPass(1);
-        }
+    }
+
+    const handlePassConf = event =>{
+        setPassConf(event.target.value)
     }
 
     const handleSubmit = event =>{
@@ -32,20 +31,58 @@ function ProfilePage() {
         setPass('')
         setEmail('')
 
-        console.log(email, pass);
+        if(hasError === 1 || hasErrorPass === 1 || hasErrorPassConf === 1){
+            console.log("Error")
+        }else{
+            console.log("Success");
+        }
     }
+
+    useEffect(()=>{
+        if(regexEmail.test(email)){
+            setHasError(0);
+        }else{
+            setHasError(1);
+        }
+    }, [email])
+
+    useEffect(()=>{
+        if(regex.test(pass)){
+            setHasErrorPass(0);
+        }else{
+            setHasErrorPass(1);
+        }
+    }, [pass])
+
+    useEffect(()=>{
+        if(passConf === pass || passConf == ''){
+            setHasErrorPassConf(0);
+        }else{
+            setHasErrorPassConf(1);
+        }
+    }, [passConf])
+
+    useEffect(()=>{
+        setHasError(0);
+        setHasErrorPass(0);
+        setHasErrorPassConf(0);
+    }, [])
+
+    
 
     return (
         <>
         <Grid direction="column" alignItems="center" justify="center" xs={3} sm={6}>
             <Card>
                 <Box sx={{display:"flex", flexDirection:"column", alignItems:"center"}}>
-                    <Typography variant="h2" sx={{p:5}}>Login</Typography>
+                    <Typography variant="h2" sx={{p:5}}>Register</Typography>
                     
                     <TextField sx={{width: 230}} error={hasError} helperText={hasError ? "Invalid email" : undefined} required label="E-mail" value={email} id="email-form" margin="normal" onChange={handleEmail}></TextField>
                     <TextField sx={{width: 230}} error={hasErrorPass} helperText={hasErrorPass ? "Password must contain  number and 1 special character" : undefined} required label="Password" value={pass} id="password-form" margin="normal" onChange={handlePass}></TextField>
+                    <TextField sx={{width: 230}} error={hasErrorPassConf} helperText={hasErrorPassConf ? "Passwords must be the same" : undefined} required label="Repeat password" value={passConf} id="repeat-form" margin="normal" onChange={handlePassConf}></TextField>
 
-                    <Button sx={{p:5}} onClick={handleSubmit}>Submit</Button>
+                    <Button sx={{p:5, fontSize:16}} onClick={handleSubmit}>Register</Button>
+                    <Typography sx={{pr:3, pb:5}}>Already have an account? <Typography component={Link} to={"/login"}>Log in!</Typography></Typography>
                 </Box>
             </Card>
             </Grid>

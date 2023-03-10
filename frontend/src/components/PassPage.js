@@ -1,5 +1,4 @@
-import { Typography, Button } from '@mui/material'
-import Navbar from './Navbar';
+import { Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 
 const url = 'https://jsonplaceholder.typicode.com/posts'
