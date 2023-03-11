@@ -9,7 +9,9 @@
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-Презентация: [MafiaPASS](https://github.com/chgrape/HackTues-RetroMafia/blob/master/MafiaPASS.pdf)
+Презентация: (GitHub)[MafiaPASS](https://github.com/chgrape/HackTues-RetroMafia/blob/master/MafiaPASS.pdf)
+             (Canva)[MafiaPASS](https://www.canva.com/design/DAFcz7MFN0k/R9POm7gh-L3Xh0Gmah7Tfw/watch?utm_content=DAFcz7MFN0k&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
+
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
