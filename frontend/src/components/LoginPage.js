@@ -11,18 +11,26 @@ function LoginPage() {
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
     const [showPass, setShowPass] = useState(false);
+    const [auth, setAuth] = useState(false);
 
     const nav = useNavigate();
 
     const handleLogin = async () => {
       const res = await axios.post("http://localhost:8080/login", { email, pass})
       console.log(res.data)
+      if(res.status == 200){
+          document.cookie = `session=${res.headers.get('set-cookie')}`
+      }
+    }
+
+    const handleLogout = async() =>{
+      const res = await axios.get("http://localhost:8080/logout");
     }
 
     const validateCookie = async () =>{
-      const res = await axios.get("http://localhost:8080/checkcookie", {withCredentials: true})
-      const data = await res.json();
-      console.log(data.msg)
+      const res = await axios.get("http://localhost:8080/protected", {headers:{Cookie:document.cookie}})
+      setAuth(res);
+      console.log(res)
     }
 
   return (
@@ -41,7 +49,7 @@ function LoginPage() {
                     ),
                   }}></TextField>
                 <Button sx={{p:5, fontSize: 16}} onClick={handleLogin}>Login</Button>
-                <Button sx={{p:5, fontSize: 16}} onClick={validateCookie}>Validate</Button>
+                <Button sx={{p:5, fontSize: 16}} onClick={handleLogout}>Logout</Button>
                 <Typography sx={{pr:3, pb:5}}>Don't have an account? <Typography component={Link} to={"/register"}>Sign up!</Typography></Typography>
             </Box>
         </Card>

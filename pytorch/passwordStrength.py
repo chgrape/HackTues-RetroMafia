@@ -45,4 +45,4 @@ def tester(password):
         return "Strong"
 
 
-print(tester(argv[1]))
+print(tester(sys.argv[1]))

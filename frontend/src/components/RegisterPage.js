@@ -3,8 +3,9 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import axios from 'axios';
 
-function ProfilePage() {
+function RegisterPage() {
     const [open, setOpen] = useState(false);
     const [showPass, setShowPass] = useState(false);
     const [email, setEmail] = useState('');
@@ -41,11 +42,7 @@ function ProfilePage() {
         }else{
             //setOpen(true);
             setErrMsg('');
-        const response = await fetch(`https://91c6-151-251-243-143.eu.ngrok.io/user?username=${email}&rootpass=${pass}`, {headers:new Headers({
-            "ngrok-skip-browser-warning": true
-            
-        }),
-        method:"POST",})
+        const response = axios.post("http://localhost:8080/user", {email, pass})
         }
     }
 
@@ -138,4 +135,4 @@ function ProfilePage() {
     )
 }
 
-export default ProfilePage
+export default RegisterPage

@@ -4,8 +4,9 @@ import Navbar from "./components/Navbar"
 import PassPage from "./components/PassPage";
 import { Routes, Route} from 'react-router-dom'
 import Home from "./components/Home";
-import ProfilePage from "./components/ProfilePage";
+import RegisterPage from "./components/RegisterPage";
 import LoginPage from "./components/LoginPage";
+import ProtectedRoute from "./utils/ProtectedRoute";
 
 function App() {
   const theme = createTheme({
@@ -29,8 +30,10 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/passwords" element={<PassPage />} />
-          <Route path="/register" element={<ProfilePage />} />
+          <Route element={<ProtectedRoute />}>
+           <Route path="/passwords" element={<PassPage />} />
+          </Route>
+          <Route path="/register" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
         </Routes>
       </ThemeProvider>

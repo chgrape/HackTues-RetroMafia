@@ -1,4 +1,5 @@
 import express from 'express';
+import { spawn } from 'child_process';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import bodyParser from 'body-parser';
@@ -20,8 +21,9 @@ app.use(bodyParser.json());
 
 app.use(session({
     secret: 'mysecret',
+    resave: false,
     cookie: {maxAge: 99999},
-    saveUninitialized: false,
+    saveUninitialized: true,
     store
 }))
 
@@ -48,11 +50,11 @@ function validateCookie(req, res, next){
     }
 }
 
-app.get('/setcookie', (req, res) =>{
-    res.cookie('cookie', 'burger123');
+app.get('/protected', (req, res) =>{
+    res.cookie('auth', 'burger123', {secure:false, httpOnly: true});
     res.send('success')
 })
-
+ 
 app.get('/checkcookie', validateCookie, (req,res)=>{
     res.send({msg:"Authenticated"})
 })
@@ -88,12 +90,26 @@ app.post('/login', (req, res)=>{
     
 })
 
+app.get('/logout', (req, res) =>{
+    req.session.destroy();
+    res.send(200);
+})
+
+app.get('/authentication', (req, res) =>{
+    res.json(req.session);
+})
+
 app.get('/user', (req, res) => {
     console.log("Hello1");
-    myknex('Users')
+    if(req.session.authenticated == false){
+        return res.status(401).json({msg:"Unauthorized"})
+    }
+    myknex('Passwords')
+    .innerJoin('Domains', 'Domains.Id', 'Passwords.DomainId')
     .select({
-        Id: 'Id',
-        Username: 'Email'
+        domain: 'Domains.DomainName',
+        email: 'Passwords.EmailInDomain',
+        pass: 'Passwords.Password'
     })
     .then((users) => {
         return res.json(users);
@@ -105,14 +121,29 @@ app.get('/user', (req, res) => {
 })
 
 app.post('/user', async (req, res) =>{
+
     res.setHeader('Access-Control-Allow-Origin', '*')
+    const childPython = spawn('python3', ['passwordStrength.py', JSON.stringify(req.body.pass)])
+        childPython.stdout.on('data', (data) => 
+        {
+            console.log(`${data}`.trim());//Weak\n\n
+            //console.log(`stdout: ${data}`);//Weak
+            if(`${data}`.trim() === 'Weak'|| `${data}`.trim() === 'Medium' || `${data}`.trim() === 'Strong')//tez
+            {
+                console.log("bad password")
+                return res.send('Password is too weak!');
+            }
+    })
     const id = await myknex('Users')
-    .insert({username : req.query.username, rootpass : req.query.rootpass})
+    .insert({email : req.body.email, rootpass : req.body.pass})
+    
     const user = await myknex('Users')
     .select({
         id: 'id',
-        username: 'username'
+        email: 'email',
+        rootpass: 'rootpass'
     }).where('id', id[0])
+
 
     console.log(user[0]);
 

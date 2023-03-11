@@ -22,3 +22,5 @@ yarn-error.log*
 /frontend/package-lock.json
 /frontend/.env
 /backend/node_modules
+
+/pytorch/__pycache__
